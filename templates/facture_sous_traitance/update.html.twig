@@ -1,0 +1,6 @@
+{% extends 'back/base.html.twig' %}
+{% block body%}
+    <h1>Modifier une Facture</h1>
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+    {{ form(form) }}
+{% endblock %}

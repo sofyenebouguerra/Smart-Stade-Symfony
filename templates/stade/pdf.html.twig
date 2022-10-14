@@ -1,0 +1,72 @@
+{% block body %}
+    <h1 align ="center" style="color:green;">Liste des stades</h1><hr>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h1 align="center" style="color:blue;">Stade</h1>
+
+                        </div>
+                        <style>
+                            #customers {
+                                font-family: Arial, Helvetica, sans-serif;
+                                border-collapse: collapse;
+                                width: 20%;
+                            }
+                            #customers td, #customers th {
+                                border: 1px solid #ddd;
+                                padding: -1px;
+                            }
+                            #customers tr:nth-child(even){background-color: #f2f2f2;}
+                            #customers tr:hover {background-color: #ddd;}
+                            #customers th {
+                                padding-top: -1px;
+                                padding-bottom: -1px;
+                                text-align: left;
+                                background-color: royalblue;
+                                color: white;
+                            }
+                        </style>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table table-striped table-bordered" id="customers" >
+        <thead>
+        <tr>
+            <th class="wd-15p">Noms</th>
+            <th class="wd-15p">Capacites</th>
+            <th class="wd-15p">Image</th>
+            <th class="wd-15p">actions</th>
+        </tr>
+        </thead>
+        <tbody id="rech">
+        {% for stade in stades %}
+        <tr>
+            <td>{{ stade.noms }}</td>
+            <td>{{ stade.capacites }}</td>
+            <td>
+                <img src="{{ asset('Upload/')}}{{ stade.image }}" width="100"  />
+
+            </td>
+            <td>
+
+                <a href="{{ path('stade_delete', {'id': stade.id}) }}"  class="btn btn-danger">Delete</a>
+                <a href="{{ path('stade_edit', {'id': stade.id}) }}"  class="btn btn-primary">edit</a>
+            </td>
+        </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

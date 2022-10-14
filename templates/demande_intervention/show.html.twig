@@ -1,0 +1,37 @@
+{% extends 'front.html.twig' %}
+{% block body%}
+    <title>Liste Factures</title>
+    <body>
+    <h1>Liste des Factures</h1>
+    <form methode="post"  action="{{ path('listFactureByDemande') }}">
+        <label>Recherche</label>
+        <input type="text" name="search"><input type="submit" value="Recherche" class="btn btn-info">
+
+    </form>
+    </body>
+    <table border="1"  class="table table-light">
+        <tr>
+
+            <td bgcolor="#a52a2a">valeurMainOeuvre</td>
+            <td  bgcolor="#dc143c">valeurPieceRecharge</td>
+            <td  bgcolor="black">dateFacture</td>
+            <td  bgcolor="lime">montantFacture</td>
+            <td  bgcolor="yellow">IdDemande</td>
+            <td  bgcolor="#00ff7f">Action</td>
+        </tr>
+        {% for facture in factures %}
+            <tr>
+
+                <td  bgcolor="#a52a2a">{{ facture.valeurMainOeuvre }}</td>
+                <td  bgcolor="#dc143c">{{ facture.valeurPieceRecharge }}</td>
+                <td  bgcolor="black">{{ facture.montantFacture }}</td>
+                <td  bgcolor="lime">{{ facture.dateFacture ? facture.dateFacture|date('Y-m-d H:i:s') : '' }}</td>
+                <td  bgcolor="yellow">{{ facture.idDemandeIntervention.idDemandeIntervention }}</td>
+                <td > <a href="{{ path('deleteFacture',{'codeFacture':facture.codeFacture}) }}" class="btn-outline-danger" >Delete</a>
+                    <a href="{{ path('updateFacture',{'codeFacture':facture.codeFacture}) }}" class="btn-file">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('addFacture') }}" class="btn btn-dark">Add Facture</a>
+{%endblock%}

@@ -1,0 +1,40 @@
+{% extends 'front.html.twig' %}
+{% block body%}
+<title>Liste Demandes</title>
+    <body>
+
+    <form methode="post"  action="{{ path('rechercher') }}">
+        <label>Recherche</label>
+        <input type="text" name="search"><input type="submit" value="Recherche" class="btn btn-info" >
+
+    </form>
+    </body>
+    <table border="4" class="table table-light" >
+        <tr>
+            <td  bgcolor="#f0f8ff">Id</td>
+            <td  bgcolor="#7fffd4">typeIntervention</td>
+            <td  bgcolor="black">interventionDemandee</td>
+            <td  bgcolor="#d2691e">dateDebutIntervention</td>
+            <td  bgcolor="#a52a2a">dateFinIntervention</td>
+            <td  bgcolor="#00008b">serviceDemandeur</td>
+            <td  bgcolor="#7cfc00">degreUrgence</td>
+        </tr>
+        {% for demande in demandes %}
+            <tr>
+                <td bgcolor="#f0f8ff">{{ demande.idDemandeIntervention }}
+                    <a href="{{ path('deleteDemande',{'idDemandeIntervention':demande.idDemandeIntervention})  }}" class="btn-outline-danger" >Delete</a>
+                    <a href="{{ path('updateDemande',{'idDemandeIntervention':demande.idDemandeIntervention}) }}" class="btn-file" >Update</a></td>
+                <td bgcolor="#7fffd4">{{ demande.typeIntervention }}</td>
+                <td bgcolor="black">{{ demande.interventionDemandee  }}</td>
+                <td bgcolor="#d2691e">{{ demande.dateDebutIntervention ? demande.dateDebutIntervention|date('Y-m-d H:i:s') : ''  }}</td>
+                <td bgcolor="#a52a2a">{{ demande.dateFinIntervention ? demande.dateFinIntervention|date('Y-m-d H:i:s') : ''  }}</td>
+                <td bgcolor="#00008b">{{ demande.serviceDemandeur }}</td>
+                <td bgcolor="#7cfc00">{{ demande.degreUrgence }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ path('addDemande') }}"  class="btn btn-dark">Add Demande </a>
+    <a href="{{ path('calendar') }}" class="btn btn-light pace-progress-color-pink">Afficher calendrier</a>
+
+ {%endblock%}
+

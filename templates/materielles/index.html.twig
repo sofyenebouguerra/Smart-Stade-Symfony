@@ -1,0 +1,56 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Materielles index{% endblock %}
+
+{% block body %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#rech tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <input class="form-control" id="myInput" type="text" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Ref</th>
+                <th>Achat</th>
+                <th>Etat</th>
+                <th>Dispo</th>
+                <th>Prix</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody id="rech">
+        {% for materielle in materielles %}
+            <tr>
+                <td>{{ materielle.nom }}</td>
+                <td>{{ materielle.ref }}</td>
+                <td>{{ materielle.achat }}</td>
+                <td>{{ materielle.etat }}</td>
+                <td>{{ materielle.dispo }}</td>
+                <td>{{ materielle.prix }}</td>
+                <td><img src="{{ asset('Upload/')}}{{ materielle.image }}" width="100"  /></td>
+                <td>
+                    <a href="{{ path('materielle_delete', {'id': materielle.id}) }} " class="btn btn-danger">Delete</a>
+                    <a href="{{ path('materielles_edit', {'id': materielle.id}) }} " class="btn btn-primary">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

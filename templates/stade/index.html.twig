@@ -1,0 +1,45 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Stade index{% endblock %}
+
+{% block body %}
+
+
+
+    <a class="btn btn-primary" href="{{path('imprimer_index')}}" > Imprimer </a>
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>Noms</th>
+                <th>Capacites</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody >
+        {% for stade in stades %}
+            <tr>
+                <td>{{ stade.noms }}</td>
+                <td>{{ stade.capacites }}</td>
+                <td>
+                   <img src="{{ asset('Upload/')}}{{ stade.image }}" width="100"  />
+
+                </td>
+                <td>
+
+                    <a href="{{ path('stade_delete', {'id': stade.id}) }}"  class="btn btn-danger">Delete</a>
+                    <a href="{{ path('stade_edit', {'id': stade.id}) }}"  class="btn btn-primary">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        {{ knp_pagination_render(stades) }}
+
+    </table>
+
+{% endblock %}
